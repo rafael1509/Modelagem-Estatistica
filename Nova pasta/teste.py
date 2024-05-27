@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 # analisar quesões ao inves da redação com o mesmo nivel de dificuldade
 
 df22 = pd.read_csv(r'\Users\b47244\Documents\Nova pasta\MICRODADOS_ENEM_2022.csv',  sep=';',encoding='iso-8859-1', usecols=["NU_ANO","TP_FAIXA_ETARIA","TP_SEXO", "TP_ESTADO_CIVIL",
-                                                                                                                          "TP_COR_RACA","TP_ST_CONCLUSAO", "TP_ESCOLA",
+                                                                                                                          "TP_COR_RACA","TP_ST_CONCLUSAO", 'TP_ANO_CONCLUIU', "TP_ESCOLA",
                                                                                                                           "NO_MUNICIPIO_PROVA","SG_UF_PROVA",
                                                                                                                           "NU_NOTA_COMP3",
                                                                                                                           "Q001","Q002","Q003","Q004","Q005","Q006","Q022","Q025"]).dropna()
@@ -25,15 +25,6 @@ df22 = pd.get_dummies(df22, columns=['TP_COR_RACA'], prefix='TP_COR_RACA')
 # Masculino = 1 e Feminino = 0
 df22['TP_SEXO'] = df22['TP_SEXO'].replace('M',1).replace('F',0)
 
-# apenas pessoas que ja concluiram o ensino medio ou vao concluir no ano da prova
-# df22 = df22[(df22['TP_ST_CONCLUSAO'] == 1) | (df22['TP_ST_CONCLUSAO'] == 2)].reset_index(drop=True)
-# df22['TP_ST_CONCLUSAO'] = df22['TP_ST_CONCLUSAO']-1
-
-# apenas quem informou o tipo de escola
-# df22 = df22[df22['TP_ESCOLA']!=1]
-# df22['TP_ESCOLA'] = df22['TP_ESCOLA']-2
-
-
 # Ao invés de usar os municipios, iremos verificar se o aluno fez a prova em uma capital
 capitais = [
     'Rio Branco', 'Maceió', 'Macapá', 'Manaus', 'Salvador', 'Fortaleza', 
@@ -50,6 +41,9 @@ regioes = {
     'Sul': ['PR', 'RS', 'SC']
 }
 df22['CAPITAL'] = df22['NO_MUNICIPIO_PROVA'].apply(lambda x: 1 if x in capitais else 0)
+df22 = df22.drop('NO_MUNICIPIO_PROVA',axis=1)
+
+# iremos usar dummies das regiões do país ao inves do nome dos estados
 def mapear_regiao(uf):
     for regiao, ufs in regioes.items():
         if uf in ufs:
@@ -57,13 +51,33 @@ def mapear_regiao(uf):
     return None
 df22['Regiao'] = df22['SG_UF_PROVA'].apply(mapear_regiao)
 
-# contagem por raça
-contagem = df22[df22['TP_ST_CONCLUSAO']==2]['TP_ESCOLA'].value_counts()
-print(contagem)
+df22 = df22.drop('SG_UF_PROVA',axis=1)
+df22 = pd.get_dummies(df22, columns=['Regiao'], prefix='Regiao')
 
+# Apenas quem irá concluir o EM no ano da prova que informou o tipo de escola. 
+# Por isso nesse df analisaremos com o impacto do tipo de escola
+# pública = 0 e privada = 1
+df22_2 = df22.copy()
+df22_2 = df22[df22['TP_ST_CONCLUSAO']==2]
+df22_2.loc[:, 'TP_ESCOLA'] = df22['TP_ESCOLA'] - 2
 
-# distribuição da nota dos índios
-# dados_indigenas = df22[df22['TP_COR_RACA'] == 5]
+# Pessoas que já se formaram nao identificaram o tipo de escola que estudaram (se publica ou privada).
+# Logo criamos um df para podermos verificar se a quantidade de tempo desde que ela concluiu o EM influenciou no seu resultado
+df22 = df22[df22['TP_ST_CONCLUSAO']==1]
+
+# # removemos a coluna do status de conclusao no DFs 1 e 2
+# df22 = df22.drop('TP_ST_CONCLUSAO',axis=0)
+# df22_2 = df22_2.drop('TP_ST_CONCLUSAO',axis=0)
+
+# removemos a coluna de ano de conclusão do DF 2
+df22_2 = df22_2.drop('TP_ANO_CONCLUIU',axis=1)
+
+# removemos a coluna do tipo de escola do DF 1
+df22 = df22.drop('TP_ESCOLA',axis=1)
+
+# contagem por ...
+# contagem = df22['TP_ESCOLA'].value_counts()
+# print(contagem)
 
 def nota_grupo(dados_grupo, info):
     plt.figure(figsize=(10, 6))
@@ -77,4 +91,5 @@ def nota_grupo(dados_grupo, info):
 
 # nota_grupo(d1, 'Histograma das Notas de alunos que ja concluiram o ensino medio')
 print(df22)
-
+print("---------------------------------------")
+print(df22_2)
