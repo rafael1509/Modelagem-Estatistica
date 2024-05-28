@@ -1,5 +1,8 @@
 # Modelagem-Estatistica
 
+## Dados
+https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/enem
+
 ## Dúvidas
 * Obejetivo será fazer uma modelagem para cada ano e comparar o coeficiente da variavel indio ao longo dos anos para ver se em 22 ela teve um maior impacto na nota
 * apena 7k índios em 2M de pessoas
