@@ -2,6 +2,7 @@
 
 ## Dúvidas
 * Obejetivo será fazer uma modelagem para cada ano e comparar o coeficiente da variavel indio ao longo dos anos para ver se em 22 ela teve um maior impacto na nota
+* apena 7k índios em 2M de pessoas
 * Usar nota da competencia 3 ao inves de usar a nota da redação
 * Criação das dummies para raça
 * Uso das capitais (binário) ao inves dos municípios
