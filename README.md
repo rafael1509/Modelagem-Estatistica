@@ -8,6 +8,7 @@ https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/enem
 * Tinha botado quem sabe a escolaridade do pai E da mãe. Troquei para quem sabe do pai OU da mãe e perdi 1k indios ao inves de 3k (antes tinha 11k)
 * ver numero de indios por estado para ver se é viavel o uso (estado ou regiao?)
 * (aparentemente esta ok ate agr)
+* comp 3 correl 0 com indio
 
 ## Dúvidas
 * Professor falou para pegar responsavel com maior escolaridade ao inves de excluir quem nao soubesse a escolaridade de ambos. então tambem peguei quem tem o "maior emprego" entre ambos. OK?
