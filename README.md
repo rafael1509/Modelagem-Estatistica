@@ -11,3 +11,4 @@ https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/enem
 * variaveis independentes x independentes
 
 ## Dúvidas
+peso nos matches. seria melhor ter o numero exato de matches. ai teria peso para cada tipo de indio. (fazer matching focando nas variaveis que mais tem correlação com a nota)
