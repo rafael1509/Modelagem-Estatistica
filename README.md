@@ -9,6 +9,7 @@ https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/enem
 * A análise das correlações entre as variáveis independentes pode ajudar a identificar a multicolinearidade, que prejudica a interpretação dos coeficientes da regressão
 * comparar variaveis independentes ao longo dos anos e fazer graficos. tambem olhar as diferenças entre o kde. (sempre com o matching)
 * olhar mais anos
+* usar binaria (indio x nao indio) ao inves das dummies
 
 ## Dúvidas
 
