@@ -11,5 +11,10 @@ https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/enem
 * olhar mais anos
 * usar binaria (indio x nao indio) ao inves das dummies
 
+## a fazer
+* dummies dos estados
+* ajeitar faixa etaria
+* df unico
+
 ## Dúvidas
 
